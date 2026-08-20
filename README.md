@@ -1,5 +1,7 @@
 # salted.bar
 
+![preview](preview.png)
+
 A floating pill-style status bar for [Omarchy](https://omarchy.org/), built on Quickshell. A fork of the built-in `omarchy.bar` with a floating island design, drop shadow, and bundled widgets/indicators.
 
 ## Features
