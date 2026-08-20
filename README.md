@@ -18,6 +18,18 @@ omarchy plugin clone salted.bar
 
 Or manually copy to `~/.config/omarchy/plugins/salted.bar/`.
 
+## Removal
+
+```bash
+rm -rf ~/.config/omarchy/plugins/salted.bar
+```
+
+Then switch back to the default bar:
+
+```bash
+omarchy refresh shell
+```
+
 ## Configuration
 
 Bar layout is configured in `~/.config/omarchy/shell.json` under the `bar` key. Use `omarchy bar move`, `omarchy bar set`, and `omarchy bar transparent` to customize from gestures or scripts.
