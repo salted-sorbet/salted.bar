@@ -7,7 +7,6 @@ A floating pill-style status bar for [Omarchy](https://omarchy.org/), built on Q
 - Floating island layout with configurable margins and edge gaps
 - Drop shadow effect on the bar surface
 - Horizontal and vertical bar orientations
-- Hot-reload on config change (no restart needed)
 
 ## Installation
 
