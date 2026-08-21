@@ -431,7 +431,14 @@ BarWidget {
       id: indicatorSource
 
       anchors.fill: parent
-      source: indicatorSlot.indicatorId ? Qt.resolvedUrl("../indicators/" + indicatorSlot.indicatorId + ".qml") : ""
+      source: {
+        var id = indicatorSlot.indicatorId
+        if (!id) return ""
+        // Validate: only alphanumeric, underscores, hyphens; no path traversal
+        if (id.indexOf("..") !== -1 || id.indexOf("/") !== -1 || id.indexOf("\\") !== -1) return ""
+        if (!/^[a-zA-Z0-9_-]+$/.test(id)) return ""
+        return Qt.resolvedUrl("../indicators/" + id + ".qml")
+      }
       onLoaded: {
         indicatorSlot.injectProps()
         indicatorSlot.syncActiveState()

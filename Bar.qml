@@ -1890,7 +1890,11 @@ Item {
     }
 
     Timer {
-      interval: Math.max(1, Number(customRoot.setting("interval", 5))) * 1000
+      interval: {
+        var val = Number(customRoot.setting("interval", 5))
+        if (!isFinite(val) || val < 1) val = 5
+        return val * 1000
+      }
       running: String(customRoot.setting("exec", "")) !== ""
       repeat: true
       triggeredOnStart: true

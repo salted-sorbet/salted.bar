@@ -32,7 +32,10 @@ BarWidget {
 
   function focusWorkspace(id) {
     if (!root.bar) return
-    root.bar.run("hyprctl dispatch " + Util.shellQuote("hl.dsp.focus({ workspace = \"" + id + "\" })"))
+    // Validate id is numeric to prevent injection
+    var numId = Number(id)
+    if (!isFinite(numId) || numId !== Math.floor(numId)) return
+    root.bar.run("hyprctl dispatch " + Util.shellQuote("hl.dsp.focus({ workspace = \"" + numId + "\" })"))
   }
 
   readonly property real trailingGap: root.vertical ? 0 : Style.spaceReal(1.5)
