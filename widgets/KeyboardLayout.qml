@@ -77,6 +77,16 @@ BarWidget {
     refreshTimer.restart()
   }
 
+  function sanitizeLayoutLabel(str) {
+    if (!str) return ""
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;")
+  }
+
   Component.onCompleted: {
     briefsProc.running = true
     refresh()
@@ -209,10 +219,10 @@ BarWidget {
     id: button
     anchors.fill: parent
     bar: root.bar
-    text: root.layoutLabel
+    text: root.sanitizeLayoutLabel(root.layoutLabel)
     fontSize: Style.font.caption
     horizontalMargin: 6
-    tooltipText: root.layoutFull
+    tooltipText: root.sanitizeLayoutLabel(root.layoutFull)
     onPressed: function() { root.cycleLayout() }
   }
 }

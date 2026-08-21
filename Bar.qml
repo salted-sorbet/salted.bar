@@ -548,6 +548,16 @@ Item {
     return BarModel.entryId(entry)
   }
 
+  function sanitizeRichText(str) {
+    if (!str) return ""
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;")
+  }
+
   function moduleString(entry, key, fallback) {
     return BarModel.moduleString(entry, key, fallback)
   }
@@ -1854,14 +1864,14 @@ Item {
       var data = Util.parseModuleJson(raw)
       var klass = data.class || data.alt || ""
 
-      outputText = data.text || String(raw || "").trim()
-      outputTooltip = data.tooltip || String(setting("tooltip", ""))
+      outputText = sanitizeRichText(data.text || String(raw || "").trim())
+      outputTooltip = sanitizeRichText(data.tooltip || String(setting("tooltip", "")))
       outputActive = klass === "active" || (Array.isArray(klass) && klass.indexOf("active") !== -1)
     }
 
     bar: root
-    text: outputText || String(setting("text", ""))
-    tooltipText: outputTooltip || String(setting("tooltip", ""))
+    text: outputText || sanitizeRichText(String(setting("text", "")))
+    tooltipText: outputTooltip || sanitizeRichText(String(setting("tooltip", "")))
     active: outputActive
     keepSpace: setting("keepSpace", false) === true
     horizontalMargin: Number(setting("horizontalMargin", 7.5))
